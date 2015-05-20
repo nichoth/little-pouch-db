@@ -4,7 +4,12 @@
   "description": "Little pouch database for testing relational data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify -d example/example.js > example/bundle.js",
+    "watch": "watchify example/example.js -o example/bundle.js -dv",
+    "server": "node server.js",
+    "dev": "npm run watch & npm run server",
+    "demo": "browserify example/example.js > example/bundle.js && html-inline example/index.html | curl -sT- https://htmlb.in | pbcopy && echo \"Don't forget to paste the demo URL into the readme.\""
   },
   "author": "Nick Thomas <nichoth@gmail.com>",
   "license": "ISC",
@@ -12,5 +17,10 @@
     "pouchdb": "^3.5.0"
   },
   "devDependencies": {
+    "ecstatic": "^0.7.6"
+  },
+  "dependencies": {
+    "node-uuid": "^1.4.3",
+    "pouch-clear-db": "0.0.1"
   }
 }

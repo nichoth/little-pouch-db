@@ -1,14 +1,20 @@
 var Pouch = require('pouchdb');
+var cleardb = require('pouch-clear-db');
 var normalize = require('./normalize');
 var data = require('./data').map(function(row) {
   return normalize(row);
 });
-var createDocs = require('./createDocs');
+
+var createDocs = require('./create-docs');
+var dataDocs = createDocs(data);
 
 // put all design docs and data in pouch with one bulkDocs call
-module.exports = function db(name) {
+module.exports = function db(opts) {
 
-  var pouch = new Pouch(name || 'pouch-test');
+  opts = opts || {};
+  opts.name = opts.name || 'pouch-test';
+
+  var pouch = new Pouch(opts);
   var views = [];
   views.push({
     _id: '_design/name',
@@ -35,15 +41,12 @@ module.exports = function db(name) {
     }
   });
 
-  var dataDocs = [];
-  data.forEach(function(row) {
-    dataDocs.concat( createDocs(row) );
-  });
-  var docs = views.concat( dataDocs );
-
-  return pouch.bulkDocs(docs).then(function() {
-    return pouch;
-  }).catch(function(err) {
-    console.log(err);
-  });
+  return cleardb(pouch)
+    .then(function() {
+      return pouch.bulkDocs( views.concat(dataDocs) );
+    }).then(function() {
+      return pouch;
+    }).catch(function(err) {
+      console.log(err);
+    });
 };

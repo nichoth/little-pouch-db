@@ -2,13 +2,13 @@ module.exports = function transform(obj) {
   var normObj = {
     name: obj.name
   };
-  delete obj.name;
-
-  normObj.metadata = Object.keys(obj).map(function(key) {
-    return {
+  normObj.metadata = [];
+  Object.keys(obj).forEach(function(key) {
+    if (key == 'name') return;
+    normObj.metadata.push({
       field: key,
-      value: obj[key]
-    };
+      value: Array.isArray(obj[key]) ? obj[key] : [ obj[key] ]
+    });
   });
 
   return normObj;

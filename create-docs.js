@@ -1,21 +1,34 @@
 var uuid = require('node-uuid');
 
-// return array of related pouch docs from a single object
-module.exports = function createDocs(node) {
-  var expandedNode = expandNode(node);
-
-  // create relationships indexed on id, create array of docs
+// create docs and relationships
+module.exports = function createDocs(nodes) {
   var docs = [];
-  expandedNode.node.metadata.forEach(function(pair) {
-    var field = create.field( expandedNode.fields[pair.field] );
-    var value = create.value( expandedNode.values[pair.value] );
-    pair.field = field._id;
-    pair.value = value._id;
-    docs.push(field);
-    docs.push(value);
+  var expandedNodes = nodes.map(function(node) {
+    return expandNode(node);
   });
-  docs.push(create.node( expandedNode.node ));
 
+  var allFields = {};
+  var allValues = {};
+
+  expandedNodes.forEach(function(expNode) {
+    expNode.node.metadata.forEach(function(pair) {
+      if ( !allFields[pair.field] ) {
+        allFields[pair.field] = create.field(expNode.fields[pair.field]);
+        docs.push(allFields[pair.field]);
+      }
+      pair.field = allFields[pair.field]._id;
+
+      pair.value.forEach(function(val) {
+        if ( !allValues[val] ) {
+          allValues[val] = create.value(expNode.values[val]);
+          docs.push(allValues[val]);
+        }
+        val = allValues[val]._id;
+      });
+    });
+    var node = create.node(expNode.node);
+    docs.push(node);
+  });
   return docs;
 };
 
@@ -40,7 +53,9 @@ function expandNode(node) {
   var valuesByName = {};
   node.metadata.forEach(function(pair) {
     fieldsByName[pair.field] = { name: pair.field };
-    valuesByName[pair.value] = { name: pair.value };
+    pair.value.forEach(function(value) {
+      valuesByName[value] = { name: value };
+    });
   });
 
   return {

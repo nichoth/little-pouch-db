@@ -39,6 +39,6 @@ module.exports = [
      mythology: "greek",
      eyes: 2,
      sex: "f",
-     hobbies: ["coiling","staring"
-     ]}
+     hobbies: ["coiling","staring"]
+   }
 ];
