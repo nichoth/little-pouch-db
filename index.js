@@ -1,11 +1,11 @@
 var Pouch = require('pouchdb');
 var cleardb = require('pouch-clear-db');
-var normalize = require('./normalize');
-var data = require('./data').map(function(row) {
+var normalize = require('./lib/normalize');
+var data = require('./lib/data').map(function(row) {
   return normalize(row);
 });
 
-var createDocs = require('./create-docs');
+var createDocs = require('./lib/create-docs');
 var dataDocs = createDocs(data);
 
 // put all design docs and data in pouch with one bulkDocs call
