@@ -1,0 +1,16 @@
+{
+  "name": "pouch-test-db",
+  "version": "0.0.0",
+  "description": "Little pouch database for testing relational data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nick Thomas <nichoth@gmail.com>",
+  "license": "ISC",
+  "peerDependencies": {
+    "pouchdb": "^3.5.0"
+  },
+  "devDependencies": {
+  }
+}
