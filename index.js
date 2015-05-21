@@ -1,4 +1,3 @@
-var Pouch = require('pouchdb');
 var cleardb = require('pouch-clear-db');
 var normalize = require('./lib/normalize');
 var data = require('./lib/data').map(function(row) {
@@ -9,12 +8,8 @@ var createDocs = require('./lib/create-docs');
 var dataDocs = createDocs(data);
 
 // put all design docs and data in pouch with one bulkDocs call
-module.exports = function db(opts) {
+module.exports = function db(pouch) {
 
-  opts = opts || {};
-  opts.name = opts.name || 'pouch-test';
-
-  var pouch = new Pouch(opts);
   var views = [];
   views.push({
     _id: '_design/name',

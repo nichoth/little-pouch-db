@@ -3,13 +3,15 @@
 Little pouch database for testing with relational data
 
 ```js
-var db = require('little-pouch-db');
+var Pouch = require('pouchdb');
+var littlePouchDb = require('little-pouch-db');
 
-db().then(function(db) {
+littlePouchDb( new Pouch('pouch-test') ).then(function(db) {
   return db.allDocs({include_docs: true});
 }).then(function(resp) {
   console.log('these are in the db: ', resp);
 });
+
 ```
 
 ## install
