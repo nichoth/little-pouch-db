@@ -1,5 +1,5 @@
 {
-  "name": "pouch-test-db",
+  "name": "little-pouch-db",
   "version": "0.0.0",
   "description": "Little pouch database for testing with relational data",
   "main": "index.js",
