@@ -25,6 +25,6 @@
   },
   "dependencies": {
     "node-uuid": "^1.4.3",
-    "pouch-clear-db": "0.0.1"
+    "pouch-clear-db": "^1.0.0"
   }
 }
