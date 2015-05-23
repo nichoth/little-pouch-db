@@ -23,7 +23,7 @@ littlePouchDb( new Pouch('pouch-test') ).then(function(db) {
 
 Mythological monsters
 
-```json
+```js
 [
   {
     name: "sphinx",
