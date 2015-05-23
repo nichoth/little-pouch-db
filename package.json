@@ -1,6 +1,6 @@
 {
   "name": "little-pouch-db",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Little pouch database for testing with relational data",
   "main": "index.js",
   "scripts": {
