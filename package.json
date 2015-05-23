@@ -1,6 +1,6 @@
 {
   "name": "little-pouch-db",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Little pouch database for testing with relational data",
   "main": "index.js",
   "scripts": {
@@ -13,9 +13,9 @@
   },
   "author": "Nick Thomas <nichoth@gmail.com>",
   "repository": {
-     "type": "git",
-     "url": "https://github.com/nichoth/little-pouch-db.git"
-   },
+    "type": "git",
+    "url": "https://github.com/nichoth/little-pouch-db.git"
+  },
   "license": "ISC",
   "peerDependencies": {
     "pouchdb": "^3.5.0"
