@@ -16,7 +16,7 @@ littlePouchDb( new Pouch('pouch-test') ).then(function(db) {
 
 ## install
 
-    $ npm install https://github.com/nichoth/little-pouch-db/tarball/master
+    $ npm install little-pouch-db
 
 ## views
 
