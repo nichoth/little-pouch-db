@@ -28,7 +28,26 @@ module.exports = function db(pouch) {
         map: function(doc) {
           if (doc.type === 'node') {
             doc.metadata.forEach(function(pair) {
-              emit([pair.field, pair.value]);
+              pair.value.forEach(function(val) {
+                emit([pair.field, val]);
+              });
+            });
+          }
+        }.toString()
+      }
+    }
+  });
+
+  views.push({
+    _id: '_design/valuesForField',
+    views: {
+      'valuesForField': {
+        map: function(doc) {
+          if (doc.type === 'node') {
+            doc.metadata.forEach(function(pair) {
+              pair.value.forEach(function(val) {
+                emit(pair.field, {_id: val});
+              });
             });
           }
         }.toString()
