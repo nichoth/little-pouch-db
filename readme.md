@@ -47,11 +47,28 @@ views.push({
     }
   }
 });
-  ```
+
+views.push({
+  _id: '_design/valuesForField',
+  views: {
+    'valuesForField': {
+      map: function(doc) {
+        if (doc.type === 'node') {
+          doc.metadata.forEach(function(pair) {
+            pair.value.forEach(function(val) {
+              emit(pair.field, {_id: val});
+            });
+          });
+        }
+      }.toString()
+    }
+  }
+});
+```
 
 ## data
 
-Three doc types: nodes, fields, values.
+Mythological monsters. Three doc types: nodes, fields, values.
 
 Example:
 
